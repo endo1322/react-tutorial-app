@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+// import { useState } from "react";
+// import ReactDOM from 'react-dom/client';
+import './index.css'; 
+import Board from "./Board.jsx";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const App = () => {
+    return (
+        <div className="flex-row text-center">
+            <div className="game-board">
+            <Board />
+            </div>
+            <div className="ml-5">
+            <div>{/* status */}</div>
+            <ol>{/* TODO */}</ol>
+            </div>
+        </div>
+    );
 }
-
-export default App;
