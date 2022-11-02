@@ -1,29 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Square from "./Square"
 
+
+
+const nullList = [
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+];
+
 const Board = () => {
-  // renderSquare(i) {
-  //   // Squareコンポーネントへvalueプロップスを渡す 
-  // return <Square value={i}/>;
-  // }
+  const [status, setStatus] = useState(nullList)
+  
+  const updateStatus = (i) => {
+    console.log(i)
+    setStatus(
+      status.map((value, index) => (index === i ? "X" : value))
+    )
+  }
+
+  const renderSquare = (i) => {
+    return (
+      <Square
+        value={status[i]}
+        onClick={() => updateStatus(i)}
+      />
+    );
+  }
+
+
 
   return (
     <div>
           <div className="mb-2.5">Next player: X</div>
           <div className="clear-both content-none">
-            <Square value={0}/> 
-            <Square value={1}/>
-            <Square value={2}/>
+            {renderSquare(0)}
+            {renderSquare(1)}
+            {renderSquare(2)}
+            {/* <Square index={0} value={status[0]} setter={updateStatus} /> */}
           </div>
           <div className="clear-both content-none">
-            <Square value={3}/>
-            <Square value={4}/>
-            <Square value={5}/>
+            {renderSquare(3)}
+            {renderSquare(4)}
+            {renderSquare(5)}
           </div>
           <div className="clear-both content-none">
-            <Square value={6}/>
-            <Square value={7}/>
-            <Square value={8}/>
+            {renderSquare(6)}
+            {renderSquare(7)}
+            {renderSquare(8)}
           </div>
         </div>
   )
