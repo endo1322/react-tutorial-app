@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Square from "./Square"
+import calculateWinner from "./calculateWinner"
 
 
 
@@ -17,15 +18,27 @@ const nullList = [
 
 const Board = () => {
   const [status, setStatus] = useState(nullList)
+  const [xIsNext, setXIsNext] = useState(true)
   
   const updateStatus = (i) => {
-    console.log(i)
+    if (calculateWinner(status) || status[i]) {
+      return;
+    }
+    const state = xIsNext ? 'X' : 'O';
     setStatus(
-      status.map((value, index) => (index === i ? "X" : value))
+      status.map((value, index) => (index === i ? state : value))
     )
+    setXIsNext(!xIsNext)
   }
 
   const renderSquare = (i) => {
+    const winner = calculateWinner(status);
+    let winStatus;
+    if (winner) {
+      winStatus = 'Winner: ' + winner;
+    } else {
+      winStatus = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    }
     return (
       <Square
         value={status[i]}
