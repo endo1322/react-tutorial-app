@@ -1,62 +1,63 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import Square from "./Square"
 import calculateWinner from "./calculateWinner"
+import { useCallback } from 'react';
 
-
-
-const nullList = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-];
-
-const Board = () => {
-  const [status, setStatus] = useState(nullList)
+const Board = memo(() => {
+  const nullList = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
+  const [status, setStatus] = useState('Next player: X')
+  const [squares, setSquares] = useState(nullList)
   const [xIsNext, setXIsNext] = useState(true)
+  // const [win, setWin] = useState(false)
   
-  const updateStatus = (i) => {
-    if (calculateWinner(status) || status[i]) {
+  const hundleClick = (i, winner) => {
+    // .slice()だとうまくいかない
+    const new_squares = [...squares]
+    setSquares(new_squares)
+    console.log(squares)
+    if (winner) {
+      setStatus('Winner: ' + winner)
+    } else {
+      setStatus('Next player: ' + (xIsNext ? 'X' : 'O'))
+    }
+    if (calculateWinner(squares) || squares[i]) {
       return;
     }
     const state = xIsNext ? 'X' : 'O';
-    setStatus(
-      status.map((value, index) => (index === i ? state : value))
+    setSquares(
+      squares.map((value, index) => (index === i ? state : value))
     )
     setXIsNext(!xIsNext)
+
   }
 
-  const renderSquare = (i) => {
-    const winner = calculateWinner(status);
-    let winStatus;
-    if (winner) {
-      winStatus = 'Winner: ' + winner;
-    } else {
-      winStatus = 'Next player: ' + (xIsNext ? 'X' : 'O');
-    }
+  const renderSquare = useCallback((i) => {
+    const winner = calculateWinner(squares);
     return (
       <Square
-        value={status[i]}
-        onClick={() => updateStatus(i)}
+        value={squares[i]}
+        onClick={() => hundleClick(i, winner)}
       />
     );
-  }
-
-
+  })
 
   return (
     <div>
-          <div className="mb-2.5">Next player: X</div>
+          <div className="mb-2.5">{status}</div>
           <div className="clear-both content-none">
             {renderSquare(0)}
             {renderSquare(1)}
             {renderSquare(2)}
-            {/* <Square index={0} value={status[0]} setter={updateStatus} /> */}
           </div>
           <div className="clear-both content-none">
             {renderSquare(3)}
@@ -70,6 +71,6 @@ const Board = () => {
           </div>
         </div>
   )
-}
+})
 
 export default Board

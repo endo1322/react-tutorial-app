@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import { memo } from 'react'
 
-const Square = (props) => {
-  // const [status, setStatus] = useState(null)
-
+const Square = memo((props) => {
+  
   return (
     <div>
         <button className="bg-slate-200 border-2 float-left text-6xl font-bold leading-8 h-40 ml-px
@@ -11,6 +10,6 @@ const Square = (props) => {
         </button>
     </div>
   )
-}
+})
 
 export default Square
