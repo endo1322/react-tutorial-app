@@ -4,7 +4,7 @@ import React from 'react';
 import './index.css'; 
 import Board from "./Board.jsx";
 
-export const App = () => {
+export const Game = () => {
     return (
         <div className="flex-row text-center">
             <div className="game-board">
