@@ -4,26 +4,15 @@ export const SquareContext = createContext({});
 
 export const SquareProvider = (props) => {
     const { children } = props;
-
-    const nullList = [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-      ];
     const [gameInfo, setGameInfo] = useState(
         {
             status: 'Next player: X',
-            square: nullList,
+            history: [{
+                squares: Array(9).fill(null)
+            }],
             xIsNext: true
         }
     )
-
 
     return (
         <SquareContext.Provider value={{ gameInfo, setGameInfo }}>

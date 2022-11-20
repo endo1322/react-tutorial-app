@@ -1,4 +1,5 @@
-const calculateWinner = (squares, win, setWin) => {
+const calculateWinner = (squares) => {
+  console.log("calculateWinner")
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
