@@ -30,9 +30,11 @@ export const Game = () => {
         if (calculateWinner(squares) || squares[i]) {
             return;
         }
-        history.unshift({
-            squares: squares.map((value, index) => index === i ? newXO : value)
-        })
+        if (squares.map((value, index) => squares[i] === null)) {
+            history.unshift({
+                squares: squares.map((value, index) => index === i ? newXO : value)
+            })
+        }
         console.log("unshift =", history)
 
         setGameInfo(
