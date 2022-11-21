@@ -1,7 +1,7 @@
 import Square from "../Square"
 
 const RenderSquare = (props) => {
-    console.log("RenderSquare")    
+    // console.log("-----RenderSquare-----")    
     
     return (
       <Square

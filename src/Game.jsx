@@ -6,16 +6,15 @@ import { useContext } from 'react';
 import calculateWinner from "./logic/calculateWinner"
 
 export const Game = () => {
-    console.log("Game")
+    console.log("-----Game-----")
     const {gameInfo, setGameInfo} = useContext(SquareContext)
-    const { status, history, xIsNext } = gameInfo
-    console.log("BeforegameINFO = ",gameInfo.status,gameInfo.history,gameInfo.xIsNext)
+    const { status, history, xIsNext, stepNumber } = gameInfo
+    console.log("BeforegameINFO = ",gameInfo)
 
     const hundleClick = (i) => {
-        console.log("hundleClick")
+        console.log("-----hundleClick-----")
         console.log("gameInfo = ",gameInfo)
-        console.log("history = ",history)
-        console.log("handleClick I= ",i)
+        // console.log("history = ",history)
         const current = history[0].squares
         const squares = current.slice()
         const winner = calculateWinner(squares);
@@ -24,8 +23,7 @@ export const Game = () => {
         if (winner) {
             newStatus = 'Winner: ' + winner
         } else {
-            newStatus = 'Next player: ' + (xIsNext ? 'X' : 'O')
-            // console.log(newStatus)
+            newStatus = 'Next player: ' + (xIsNext ? 'O' : 'X')
         }
         if (calculateWinner(squares) || squares[i]) {
             return;
@@ -35,29 +33,57 @@ export const Game = () => {
                 squares: squares.map((value, index) => index === i ? newXO : value)
             })
         }
-        console.log("unshift =", history)
 
         setGameInfo(
             {
                 status: newStatus,
                 history: history,
-                xIsNext: !xIsNext
+                xIsNext: !xIsNext,
+                stepNumber: history.length
             }
         )
         
         console.log("afterGameInfo",gameInfo)
-        console.log("hist = ",history[0].squares[2])
     }
+
+    const jumpTo = (step) => {
+        const length = history.length -1
+        for (let i = 0; i < length - step; i++) {
+            history.shift()
+        }
+        setGameInfo(
+            {
+                status: (step % 2) === 0 ? 
+                    'Next player: X' : 'Next player: O',
+                history: history,
+                xIsNext: (step % 2) === 0,
+                stepNumber: step
+            }
+        )
+        console.log("jumpTo",gameInfo)
+    }
+
+    const moves = history.map((step, move) => {
+        const desc = move ?
+          'Go to move #' + move :
+          'Go to game start';
+        return (
+          <li key={move}>
+            <button className="bg-slate-200 mb-px" onClick={() => jumpTo(move)}>{desc}</button>
+          </li>
+        );
+      });
 
     return (
         <div className="flex-row text-center">
             <div className="game-board">
-            <Board onClick={(i) => {console.log("i = ",i);hundleClick(i)}}/>
+            <Board onClick={(i) => hundleClick(i)}/>
             </div>
             <div className="ml-5">
             <div>{gameInfo.status}</div>
-            <ol>{/* TODO */}</ol>
+            <ol>{moves}</ol>
             </div>
+            {console.log("-----End-----")}
         </div>
     );
 }

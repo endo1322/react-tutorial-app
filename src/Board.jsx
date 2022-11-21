@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import RenderSquare from "./components/renderSquare"
 
 const Board = (props) => {
-  console.log("Bord")
+  console.log("-----Bord-----")
   return (
     <div>
           <div className="clear-both content-none">

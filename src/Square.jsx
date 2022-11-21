@@ -2,7 +2,7 @@ import { memo, useContext } from 'react'
 import { SquareContext } from "./components/providers/SquareProvider"
 
 const Square = memo((props) => {
-  // console.log("Square")
+  console.log("-----Square-----")
   const {gameInfo, setGameInfo} = useContext(SquareContext)
   const { status, history, xIsNext } = gameInfo
   return (

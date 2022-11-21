@@ -10,7 +10,8 @@ export const SquareProvider = (props) => {
             history: [{
                 squares: Array(9).fill(null)
             }],
-            xIsNext: true
+            xIsNext: true,
+            stepNumber: 0
         }
     )
 
