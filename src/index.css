@@ -5,7 +5,9 @@
 
 body {
     font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
+    font-weight: 600;
+    /* margin: 20px; */
+    overflow: hidden;
   }
   
   ol, ul {

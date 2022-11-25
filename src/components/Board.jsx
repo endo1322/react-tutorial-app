@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import RenderSquare from "./components/renderSquare"
+import React from 'react'
+import RenderSquare from "./RenderSquare"
 
 const Board = (props) => {
   console.log("-----Bord-----")
@@ -9,7 +9,7 @@ const Board = (props) => {
     for (let j = 0; j < 3; j++) {
       renderList.push(<RenderSquare i={i*3+j} key={i*3+j} onClick={() => props.onClick(i*3+j)} winLine={props.winLine}/>)
     }
-    retList.push(<div className="clear-both content-none" id={i} key={i}>{renderList}</div>)
+    retList.push(<div className="flex items-center justify-center" id={i} key={i}>{renderList}</div>)
   }
 
   return (

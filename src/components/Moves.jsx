@@ -11,15 +11,11 @@ const Moves = () => {
     
     const jumpTo = (step) => {
         console.log("-----jumpTo Start-----")
-        const length = history.length -1
-        for (let i = 0; i < length - step; i++) {
-            history.shift()
-        }
         setGameInfo(
             {
                 history: history,
                 xIsNext: (step % 2) === 0,
-                stepNumber: step
+                stepNumber: history.length - 1 - step
             }
         )
         console.log("jumpTo gameInfo = ",gameInfo)
@@ -32,9 +28,9 @@ const Moves = () => {
           'Go to move #' + move :
           'Go to game start')
         desc.push(
-        <li key={move}>
-            <button className="bg-slate-200 hover:bg-sky-400 mb-px" onClick={() => jumpTo(move)}>{temp}</button>
-        </li>)
+        <div className="flex justify-center" key={move}>
+            <button className="bg-slate-200 mb-1 rounded-md px-4 hover:bg-sky-400" onClick={() => jumpTo(move)}>{temp}</button>
+        </div>)
     })
 
   return (
